@@ -1,5 +1,4 @@
 import express from 'express';
-import { RequestHandler } from 'express-serve-static-core';
 import { UserController } from '../controllers/UserController';
 import { container } from '../container';
 
@@ -11,8 +10,8 @@ router.route('/')
     .post(userController.createUser);
 
 router.route('/:id')
-    .get(userController.getUserById as RequestHandler)
-    .put(userController.updateUser as RequestHandler)
-    .delete(userController.deleteUser as RequestHandler);
+    .get(userController.getUserById)
+    .put(userController.updateUser)
+    .delete(userController.deleteUser);
 
 export default router;

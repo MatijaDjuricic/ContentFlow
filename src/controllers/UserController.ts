@@ -1,65 +1,47 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { inject, injectable } from 'inversify';
 import { IUserService } from '../interfaces/IUserService';
 import { TYPES } from '../types/types';
+import { catchAsync } from '../utils/catchAsync';
+import { AppError } from '../utils/AppError';
 @injectable()
 export class UserController {
     private readonly userService: IUserService;
     constructor(@inject(TYPES.IUserService) userService: IUserService) {
         this.userService = userService;
     }
-    public getUsers = async (_: Request, res: Response) => {
-        try {
-            const users = await this.userService.getUsersAsync();
-            res.status(200).json(users);
-        } catch (error) {
-            res.status(500).json({ message: 'Error fetching users' });
+    public getUsers = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+        const users = await this.userService.getUsersAsync();
+        res.status(200).json(users);
+    });
+    public getUserById = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+        const id: string = req.params.id;
+        const user = await this.userService.getUserByIdAsync(id);
+        if (!user) {
+            return next(new AppError('User not found', 404));
         }
-    }
-    public getUserById = async (req: Request, res: Response) => {
-        try {
-            const id: string = req.params.id;
-            const user = await this.userService.getUserByIdAsync(id);
-            if (!user) {
-                return res.status(404).json({ message: 'User not found' });
-            }
-            res.status(200).json(user);
-        } catch (error) {
-            res.status(500).json({ message: 'Error fetching user' });
+        res.status(200).json(user);
+    });
+    public createUser = catchAsync(async (req: Request, res: Response) => {
+        const { username, email, password } = req.body;
+        const newUser = await this.userService.createUserAsync({ username, email, password });
+        res.status(201).json(newUser);       
+    });
+    public updateUser = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+        const id: string = req.params.id;
+        const { username, email, password } = req.body;
+        const user = await this.userService.updateUserAsync(id, { username, email, password });
+        if (!user) {
+            return next(new AppError('User not found', 404));
         }
-    }
-    public createUser = async (req: Request, res: Response) => {
-        try {
-            const { username, email, password } = req.body;
-            const newUser = await this.userService.createUserAsync({ username, email, password });
-            res.status(201).json(newUser);
-        } catch (error) {
-            res.status(500).json({ message: 'Error creating user' });
+        res.status(200).json(user);
+    });
+    public deleteUser = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+        const id: string = req.params.id;
+        const user = await this.userService.deleteUserAsync(id);
+        if (!user) {
+            return next(new AppError('User not found', 404));
         }
-    }
-    public updateUser = async (req: Request, res: Response) => {
-        try {
-            const id: string = req.params.id;
-            const { username, email, password } = req.body;
-            const user = await this.userService.updateUserAsync(id, { username, email, password });
-            if (!user) {
-                return res.status(404).json({ message: 'User not found' });
-            }
-            res.status(200).json(user);
-        } catch (error) {
-            res.status(500).json({ message: 'Error updating user' });
-        }
-    }
-    public deleteUser = async (req: Request, res: Response) => {
-        try {
-            const id: string = req.params.id;
-            const user = await this.userService.deleteUserAsync(id);
-            if (!user) {
-                return res.status(404).json({ message: 'User not found' });
-            }
-            res.status(200).json({ message: 'User deleted successfully' });
-        } catch (error) {
-            res.status(500).json({ message: 'Error deleting user' });
-        }
-    }
+        res.status(200).json({ message: 'User deleted successfully' });
+    });
 }

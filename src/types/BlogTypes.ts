@@ -9,14 +9,19 @@ export interface IBlog extends Document {
 
 export interface ICreateBlogRequest {
     title: string;
-    content: string;
+    content: string,
+    description: string,
+    userId: string
 }
-
 export interface IUpdateBlogRequest {
     title?: string;
     content?: string;
+    description?: string;
 }
 
-export type BlogResponse = IBlog;
-
-export type BlogsResponse = IBlog[];
+export interface IBlogResponse {
+    title: string;
+    content: string;
+    description: string;
+    userId: string;
+}

@@ -1,7 +1,13 @@
+import {
+    IBlog,
+    IBlogResponse,
+    ICreateBlogRequest,
+    IUpdateBlogRequest
+} from "../types/BlogTypes";
 export interface IBlogService {
-    getBlogsAsync(): Promise<any[]>;
-    getBlogByIdAsync(id: string): Promise<any>;
-    createBlogAsync(blogData: { title: string; content: string, description: string, userId: number }): Promise<any>;
-    updateBlogAsync(id: string, blogData: { title: string; content: string }): Promise<any>;
-    deleteBlogAsync(id: string): Promise<any>;
+    getBlogsAsync(): Promise<IBlog[] | IBlogResponse[]>;
+    getBlogByIdAsync(id: string): Promise<IBlog | IBlogResponse | null>;
+    createBlogAsync(blogData: ICreateBlogRequest): Promise<IBlog | IBlogResponse>;
+    updateBlogAsync(id: string, blogData: IUpdateBlogRequest): Promise<IBlog | IBlogResponse>;
+    deleteBlogAsync(id: string): Promise<IBlog | IBlogResponse | null>;
 }

@@ -1,8 +1,8 @@
 import { Container } from "inversify";
 import { UserController } from "./controllers/UserController";
 import { BlogController } from "./controllers/BlogController";
-import { UserService } from "./services/userService";
-import { BlogService } from "./services/blogService";
+import { UserService } from "./services/UserService";
+import { BlogService } from "./services/BlogService";
 import { IBlogService } from "./interfaces/IBlogService";
 import { IUserService } from "./interfaces/IUserService";
 import { TYPES } from "./types/types";

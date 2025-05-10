@@ -17,3 +17,10 @@ export interface IUpdateUserRequest {
     email?: string;
     password?: string;
 }
+
+export interface IUserResponse {
+    username: string;
+    email: string;
+    createdAt?: Date;
+    updatedAt?: Date;
+}

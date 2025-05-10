@@ -1,7 +1,13 @@
+import {
+    IUser,
+    IUserResponse,
+    ICreateUserRequest,
+    IUpdateUserRequest
+} from "../types/UserTypes";
 export interface IUserService {
-    getUsersAsync(): Promise<any[]>;
-    getUserByIdAsync(id: string): Promise<any>;
-    createUserAsync(userData: { username: string; email: string; password: string }): Promise<any>;
-    updateUserAsync(id: string, userData: { username: string; email: string; password: string }): Promise<any>;
-    deleteUserAsync(id: string): Promise<{ message: string }>;
+    getUsersAsync(): Promise<IUser[] | IUserResponse[]>;
+    getUserByIdAsync(id: string): Promise<IUser | IUserResponse | null>;
+    createUserAsync(userData: ICreateUserRequest): Promise<IUser | IUserResponse>;
+    updateUserAsync(id: string, userData: IUpdateUserRequest): Promise<IUser | IUserResponse | null>;
+    deleteUserAsync(id: string): Promise<IUser | IUserResponse | null>;
 }
