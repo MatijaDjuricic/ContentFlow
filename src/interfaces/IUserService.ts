@@ -2,9 +2,11 @@ import {
     IUser,
     IUserResponse,
     ICreateUserRequest,
-    IUpdateUserRequest
+    ILoginUserRequest,
+    IUpdateUserRequest,
 } from "../types/UserTypes";
 export interface IUserService {
+    loginUserAsync(userData: ILoginUserRequest): Promise<IUser | IUserResponse | null>;
     getUsersAsync(): Promise<IUser[] | IUserResponse[]>;
     getUserByIdAsync(id: string): Promise<IUser | IUserResponse | null>;
     createUserAsync(userData: ICreateUserRequest): Promise<IUser | IUserResponse>;

@@ -1,4 +1,5 @@
 export interface IUser extends Document {
+    id: string;
     username: string;
     email: string;
     password: string;
@@ -19,8 +20,11 @@ export interface IUpdateUserRequest {
 }
 
 export interface IUserResponse {
+    id: string;
     username: string;
     email: string;
     createdAt?: Date;
     updatedAt?: Date;
 }
+
+export type ILoginUserRequest = Omit<ICreateUserRequest, 'username'>;

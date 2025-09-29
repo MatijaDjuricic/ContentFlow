@@ -5,6 +5,9 @@ import { container } from '../container';
 const router = express.Router();
 const userController = container.get<UserController>(UserController);
 
+router.route('/login')
+    .post(userController.loginUser);
+
 router.route('/')
     .get(userController.getUsers)
     .post(userController.createUser);
