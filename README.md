@@ -44,7 +44,7 @@ Follow these steps to get your local development environment running.
 ### 1. Clone the repository
 
 \`\`\`
-git clone https://github.com/yourusername/ContentFlow.git
+git clone https://github.com/MatijaDjuricic/ContentFlow.git
 \`\`\`
 
 ### 2. Install dependencies
@@ -87,39 +87,6 @@ This will run the application on `http://localhost:5000` by default.
 ### 2. Use the API
 
 The API provides endpoints for managing blog posts and users (as mentioned below). You can use tools like Postman or Insomnia to test the API.
-
----
-
-## Project Structure
-
-Here's a brief breakdown of the project's folder structure:
-
-\`\`\`
-/src
-  ├── /config            # Database connection configuration
-  │    └── db.ts         # MongoDB connection
-  ├── /controllers       # API controllers that handle HTTP requests
-  │    └── UserController.ts
-  │    └── BlogController.ts
-  ├── /models            # MongoDB schemas (Mongoose models)
-  │    └── User.ts       # User model
-  │    └── Blog.ts       # Blog model
-  ├── /routes            # Express routes
-  │    └── userRoutes.ts
-  │    └── blogRoutes.ts
-  ├── /services          # Business logic related to blog and user operations
-  │    └── UserService.ts
-  │    └── BlogService.ts
-  ├── /middleware        # Middlewares (Error handling, authentication, etc.)
-  │    └── errorMiddleware.ts
-  ├── app.ts             # Express app setup
-  ├── server.ts          # Entry point to start the server
-  ├── /types             # TypeScript types and interfaces
-  │    └── UserTypes.ts
-  │    └── BlogTypes.ts
-  └── /utils             # Helper utilities (like logging, etc.)
-  │    └── logger.ts
-\`\`\`
 
 ---
 
