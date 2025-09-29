@@ -3,7 +3,6 @@ import { User } from '../models/User';
 import { IUserService } from '../interfaces/IUserService';
 import { hashPassword, verifyPassword } from '../utils/helpers';
 import {
-    IUser,
     IUserResponse,
     ILoginUserRequest,
     ICreateUserRequest,
@@ -18,8 +17,15 @@ export class UserService implements IUserService {
         try {
             userData.password = hashPassword(userData.password);
             const newUser = new User(userData);
+            const userResponse: IUserResponse = {
+                id: newUser.id,
+                username: newUser.username,
+                email: newUser.email,
+                createdAt: newUser.createdAt,
+                updatedAt: newUser.updatedAt,
+            };
             await newUser.save();
-            return newUser;
+            return userResponse;
         } catch (error) {
             throw new Error('Error creating user');
         }
